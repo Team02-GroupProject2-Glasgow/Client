@@ -9,7 +9,7 @@
             <div class="mb-3">
               <input v-model="name" type="text" class="form-control" id="name" required>
             </div>
-            <span @click="checkPlayers" class='start-btn'>START</span>
+            <span @click="checkPlayers" class='start-btn'>Enter Room</span>
           </div>
         </div>
       </div>
@@ -88,10 +88,6 @@ export default {
     box-shadow: none;
     position: relative;
     top: .2em;
-  }
-  @font-face {
-    font-family: Clip;
-    src: url("https://acupoftee.github.io/fonts/Clip.ttf");
   }
 
   .bg {

@@ -1,7 +1,20 @@
 <template>
   <div class="game-board position-relative bg-1">
     <h2 class="text-white mb-5">Game Tebak Kata</h2>
-    <button v-if="!start" @click="startGame" class="btn btn-success">Start</button>
+    <h1 class="text-white" v-if="!start">Players</h1>
+    <div class="container-fluid mb-4 mt-4" v-if="!start">
+    <div class="row justify-content-center">
+      <div class="col-2">
+        <div class="card" style="width: 18rem;">
+          <ul class="list-group list-group-flush">
+            <li v-for="player in players" :key="player.id" class="list-group-item">{{ player.username }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    </div>
+    <h4 class="text-white mb-2" v-if="!start && players.length !==4 ">Wating for players..</h4>
+    <button v-if="!start" @click="startGame" :disabled="players.length !== 4" class="btn btn-success">Start</button>
     <div v-if="start">
       <div class="progres position-absolute text-warning fs-1">
         {{ progress }}/5
@@ -135,7 +148,8 @@ export default {
     ...mapState([
       'words',
       'users',
-      'user'
+      'user',
+      'players'
     ])
   }
 }
