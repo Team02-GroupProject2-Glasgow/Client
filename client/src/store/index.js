@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     words: [],
     users: [],
-    user: {}
+    user: {},
+    players: []
   },
   mutations: {
     setWords (state, payload) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     setUser (state, payload) {
       state.user = payload
+    },
+    setPlayers (state, payload) {
+      state.players = payload
     }
   },
   actions: {
@@ -31,6 +35,10 @@ export default new Vuex.Store({
     },
     SOCKET_sendYou (context, payload) {
       context.commit('setUser', payload)
+    },
+    SOCKET_players (context, payload) {
+      console.log('Players bro')
+      context.commit('setPlayers', payload)
     }
   },
   modules: {
