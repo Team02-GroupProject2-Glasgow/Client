@@ -54,7 +54,7 @@ export default {
     sendName () {
       router.push('/game')
       this.$socket.emit('getName', this.name)
-    }    
+    }
   },
   computed: {
     players () {
