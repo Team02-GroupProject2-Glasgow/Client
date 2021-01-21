@@ -9,7 +9,7 @@
             <div class="mb-3">
               <input v-model="name" type="text" class="form-control" id="name" required>
             </div>
-            <span @click="startGame" class='start-btn'>START</span>
+            <span @click="sendName" class='start-btn'>START</span>
           </div>
         </div>
       </div>
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import router from '../router'
+
 export default {
   data () {
     return {
@@ -40,6 +42,10 @@ export default {
   methods: {
     startGame () {
       console.log('masukk')
+    },
+    sendName () {
+      router.push('/game')
+      this.$socket.emit('getName', this.name)
     }
   }
 }
