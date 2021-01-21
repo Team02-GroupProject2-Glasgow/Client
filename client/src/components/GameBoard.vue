@@ -7,13 +7,13 @@
         {{ progress }}/5
       </div>
       <!-- Leader Board -->
-      <!-- <div class="leader-board position-absolute text-white">
+      <div class="leader-board position-absolute text-white">
         <span class="fs-4 fw-bold">LEADER BOARD</span>
-        <div class="bg-3 p-1 fs-5 rounded-pill mt-2">
-          <span class="mx-2">Abby</span>
-          <span class="mx-2 text-warning">4/5</span>
+        <div v-for="(user, ind) in users" :key="ind" class="bg-3 p-1 fs-5 rounded-pill mt-2">
+          <span class="mx-2">{{ user.name }}</span>
+          <span class="mx-2 text-warning">{{ user.progress }}/5</span>
         </div>
-        <div class="bg-3 p-1 fs-5 rounded-pill mt-2">
+        <!-- <div class="bg-3 p-1 fs-5 rounded-pill mt-2">
           <span class="mx-2">Anthony</span>
           <span class="mx-2 text-warning">3/5</span>
         </div>
@@ -24,8 +24,8 @@
         <div class="bg-3 p-1 fs-5 rounded-pill mt-2">
           <span class="mx-2">Pajar</span>
           <span class="mx-2 text-warning">2/5</span>
-        </div>
-      </div> -->
+        </div> -->
+      </div>
       <!-- Qlue -->
       <div class="w-50 mx-auto text-white fs-5">
         <div
@@ -112,6 +112,7 @@ export default {
       if (this.answer === this.word.answer) {
         console.log('benar')
         // membuat event ke server
+        // yang dikirim progress kita
         this.isTrue = true
       } else if (this.answer.length === 5) {
         console.log('salah')
@@ -129,9 +130,10 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      words: 'words'
-    })
+    ...mapState([
+      'words',
+      'users'
+    ])
   }
 }
 </script>
