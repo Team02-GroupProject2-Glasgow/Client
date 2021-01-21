@@ -9,7 +9,7 @@
             <div class="mb-3">
               <input v-model="name" type="text" class="form-control" id="name" required>
             </div>
-            <span @click="sendName" class='start-btn'>START</span>
+            <span @click="checkPlayers" class='start-btn'>START</span>
           </div>
         </div>
       </div>
@@ -40,12 +40,25 @@ export default {
     }
   },
   methods: {
-    startGame () {
-      console.log('masukk')
+    checkPlayers () {
+      if (this.players.length <= 3) {
+        this.joinRoom()
+        this.$router.push({ name: 'GamePage' })
+      } else {
+        this.$swal('Sorry the room is full')
+      }
+    },
+    joinRoom () {
+      this.$socket.emit('joinRoom', { username: this.name, room: 1 })
     },
     sendName () {
       router.push('/game')
       this.$socket.emit('getName', this.name)
+    }    
+  },
+  computed: {
+    players () {
+      return this.$store.state.players
     }
   }
 }
