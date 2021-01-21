@@ -111,8 +111,6 @@ export default {
       this.answer = `${this.first}${this.second}${this.third}${this.fourth}${this.fifth}`
       if (this.answer === this.word.answer) {
         console.log('benar')
-        // membuat event ke server
-        // yang dikirim progress kita
         this.isTrue = true
       } else if (this.answer.length === 5) {
         console.log('salah')
@@ -127,12 +125,17 @@ export default {
       this.fourth = ''
       this.fifth = ''
       this.word = this.words[id]
+      this.$socket.emit('updateProgress', {
+        id: this.user.id,
+        progress: this.progress
+      })
     }
   },
   computed: {
     ...mapState([
       'words',
-      'users'
+      'users',
+      'user'
     ])
   }
 }
