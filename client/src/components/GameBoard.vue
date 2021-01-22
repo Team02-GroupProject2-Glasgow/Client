@@ -14,20 +14,20 @@
     <!-- Button trigger modal -->
     <div class="mt-3">
       <button v-if="!start" type="button" class="btn btn-info w-25 text-white" data-bs-toggle="modal" data-bs-target="#modalRules">
-        Rules / Peraturan
+        Peraturan
       </button>
       <!-- Modal -->
       <div class="modal fade" id="modalRules" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Rules / Peraturan Permainan</h5>
+              <h5 class="modal-title">Peraturan Permainan</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p>1. Maksimal player yang dapat join adalah 4 player, jika penuh mohon menunggu</p>
-              <p>2. Setiap player akan bermain untuk menebak kata dengan clue clue yang sudah diberikan</p>
-              <p>3. Setelah salah satu player ada yang menyelesaikan semua tebak kata, game akan berakhir</p>
+              <p>1. Jumlah maksimal player yang dapat join adalah 4 player, jika jumlah player sudah mencapai maksimal, mohon menunggu</p>
+              <p>2. Setiap player akan bermain untuk menebak kata dengan clue yang sudah diberikan</p>
+              <p>3. Setelah ada salah satu player yang menyelesaikan semua tebak kata, game akan berakhir</p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -88,9 +88,6 @@
       <div v-if="isTrue" class="mt-3">
         <button @click="nextGame(word.id)" class="btn btn-success w-50">Next Question</button>
       </div>
-      <!-- <div v-if="winner.isWinner" class="mt-3">
-        <button class="btn btn-success w-50">Udah ada yang menang</button>
-      </div> -->
     </div>
   </div>
 </template>
