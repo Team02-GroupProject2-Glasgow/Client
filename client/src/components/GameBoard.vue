@@ -67,6 +67,9 @@
       <div v-if="isTrue" class="mt-3">
         <button @click="nextGame(word.id)" class="btn btn-success w-50">Next Question</button>
       </div>
+      <!-- <div v-if="winner.isWinner" class="mt-3">
+        <button class="btn btn-success w-50">Udah ada yang menang</button>
+      </div> -->
     </div>
   </div>
 </template>
@@ -115,7 +118,13 @@ export default {
     },
     checkAnswer () {
       this.answer = `${this.first}${this.second}${this.third}${this.fourth}${this.fifth}`
-      if (this.answer === this.word.answer) {
+      if (this.answer === this.word.answer && this.word.id === 5) {
+        this.isWinner = true
+        this.$socket.emit('getTheWinner', {
+          isWinner: true,
+          player: this.player
+        })
+      } else if (this.answer === this.word.answer) {
         console.log('benar')
         this.isTrue = true
       } else if (this.answer.length === 5) {
@@ -141,7 +150,8 @@ export default {
     ...mapState([
       'words',
       'player',
-      'players'
+      'players',
+      'winner'
     ])
   }
 }

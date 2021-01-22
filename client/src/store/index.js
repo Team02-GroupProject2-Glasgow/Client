@@ -7,7 +7,9 @@ export default new Vuex.Store({
   state: {
     words: [],
     player: {},
-    players: []
+    players: [],
+    isTheWinner: false,
+    winner: {}
   },
   mutations: {
     setWords (state, payload) {
@@ -18,6 +20,12 @@ export default new Vuex.Store({
     },
     setPlayers (state, payload) {
       state.players = payload
+    },
+    setIsTheWinner (state, payload) {
+      state.isTheWinner = payload
+    },
+    setWinner (state, payload) {
+      state.winner = payload
     }
   },
   actions: {
@@ -31,6 +39,11 @@ export default new Vuex.Store({
     SOCKET_players (context, payload) {
       console.log('Players bro')
       context.commit('setPlayers', payload)
+    },
+    SOCKET_setTheWinner (context, payload) {
+      context.commit('setWinner', payload)
+      context.commit('setIsTheWinner', payload.isWinner)
+      console.log(payload)
     }
   },
   modules: {
