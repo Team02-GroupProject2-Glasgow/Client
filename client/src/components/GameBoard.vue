@@ -146,9 +146,7 @@ export default {
           isWinner: true,
           player: this.player
         })
-        if (this.player.id === this.winner.player.id) {
-          this.showWinner()
-        }
+        this.showWinner()
       } else if (this.answer === this.word.answer) {
         console.log('benar')
         this.isTrue = true
