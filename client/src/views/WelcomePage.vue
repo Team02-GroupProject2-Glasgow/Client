@@ -24,15 +24,13 @@
         </div>
       </div>
     </div>
-    <audio autoplay loop>
+    <!-- <audio autoplay loop>
       <source src="@/assets/01-title.mp3">
-    </audio>
+    </audio> -->
   </div>
 </template>
 
 <script>
-import router from '../router'
-
 export default {
   data () {
     return {
@@ -49,11 +47,7 @@ export default {
       }
     },
     joinRoom () {
-      this.$socket.emit('joinRoom', { username: this.name, room: 1 })
-    },
-    sendName () {
-      router.push('/game')
-      this.$socket.emit('getName', this.name)
+      this.$socket.emit('joinRoom', { username: this.name, room: 1, progress: 0 })
     }
   },
   computed: {

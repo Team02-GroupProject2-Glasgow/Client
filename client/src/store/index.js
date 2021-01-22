@@ -6,19 +6,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     words: [],
-    users: [],
-    user: {},
+    player: {},
     players: []
   },
   mutations: {
     setWords (state, payload) {
       state.words = payload
     },
-    setUsers (state, payload) {
-      state.users = payload
-    },
-    setUser (state, payload) {
-      state.user = payload
+    setPlayer (state, payload) {
+      state.player = payload
     },
     setPlayers (state, payload) {
       state.players = payload
@@ -29,12 +25,8 @@ export default new Vuex.Store({
       console.log('Init bro')
       context.commit('setWords', payload)
     },
-    SOCKET_sendAllUser (context, payload) {
-      console.log(payload)
-      context.commit('setUsers', payload)
-    },
-    SOCKET_sendYou (context, payload) {
-      context.commit('setUser', payload)
+    SOCKET_sendPlayer (context, payload) {
+      context.commit('setPlayer', payload)
     },
     SOCKET_players (context, payload) {
       console.log('Players bro')
