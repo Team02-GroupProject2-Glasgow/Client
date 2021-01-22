@@ -1,6 +1,6 @@
 <template>
   <div class="game-board position-relative bg-1">
-    <h2 class="text-white mb-5">GAME TEBAK KATA</h2>
+    <h1 class="text-white mb-3">GAME TEBAK KATA</h1>
     <h1 class="text-white" v-if="!start">Players</h1>
     <div class="mb-4 mt-4" v-if="!start">
     <div class="d-flex justify-content-center">
@@ -9,33 +9,10 @@
       </div>
     </div>
     </div>
-    <h4 class="text-white mb-2" v-if="!start && players.length !==4 ">Wating for players..</h4>
+    <h4 class="text-white mb-2" v-if="!start && players.length !==4 ">Wating for players...</h4>
     <button v-if="!start" @click="startGame" :disabled="players.length !== 4" class="btn btn-success w-25">Start</button>
     <!-- Button trigger modal -->
-    <div class="mt-3">
-      <button v-if="!start" type="button" class="btn btn-info w-25 text-white" data-bs-toggle="modal" data-bs-target="#modalRules">
-        Rules / Peraturan
-      </button>
-      <!-- Modal -->
-      <div class="modal fade" id="modalRules" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Rules / Peraturan Permainan</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p>1. Maksimal player yang dapat join adalah 4 player, jika penuh mohon menunggu</p>
-              <p>2. Setiap player akan bermain untuk menebak kata dengan clue clue yang sudah diberikan</p>
-              <p>3. Setelah salah satu player ada yang menyelesaikan semua tebak kata, game akan berakhir</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Rules v-if="!start"></Rules>
     <div v-if="start">
       <!-- Player -->
       <div class="progres position-absolute text-white">
@@ -53,7 +30,7 @@
           <span class="mx-2 text-warning">{{ player.progress }}/5</span>
         </div>
       </div>
-      <!-- Qlue -->
+      <!-- Clue -->
       <div class="w-50 mx-auto text-white fs-5">
         <div
           v-for="(clue, ind) in word.clue"
@@ -88,18 +65,19 @@
       <div v-if="isTrue" class="mt-3">
         <button @click="nextGame(word.id)" class="btn btn-success w-50">Next Question</button>
       </div>
-      <!-- <div v-if="winner.isWinner" class="mt-3">
-        <button class="btn btn-success w-50">Udah ada yang menang</button>
-      </div> -->
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import Rules from './Rules'
 
 export default {
   name: 'GameBoard',
+  components: {
+    Rules
+  },
   data () {
     return {
       start: false,
@@ -141,10 +119,12 @@ export default {
       console.log(this.word)
     },
     checkAnswer () {
-      this.answer = `${this.first}${this.second}${this.third}${this.fourth}${this.fifth}`
+      this.answer = `${this.first}${this.second}${this.third}${this.fourth}${this.fifth}`.toLowerCase()
       if (this.answer === this.word.answer && this.word.id === 5) {
         console.log(this.winner, '<<< winner')
         this.isWinner = true
+        const audio = new Audio('../assets/01-title.mp3')
+        audio.play()
         this.$socket.emit('getTheWinner', {
           isWinner: true,
           player: this.player
@@ -164,10 +144,24 @@ export default {
       }
     },
     showWinner () {
-      this.$swal('Conrats you win!')
+      this.$swal({
+        title: 'Congrats . . .',
+        text: 'You are the winner',
+        confirmButtonText: 'Restart Game'
+      }).then(() => {
+        this.$router.push('/')
+        this.$socket.emit('restartGame')
+      })
     },
     showLosers () {
-      this.$swal('You Lose..')
+      this.$swal({
+        title: 'Opppss.. You Lose',
+        text: `"${this.winner.player.username}" is the winner`,
+        confirmButtonText: 'Restart Game'
+      }).then(() => {
+        this.$router.push('/')
+        this.$socket.emit('restartGame')
+      })
     },
     nextGame (id) {
       this.isTrue = false
