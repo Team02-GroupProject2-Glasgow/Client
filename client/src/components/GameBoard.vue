@@ -139,12 +139,12 @@ export default {
       }
     },
     checkWinner () {
-      console.log(this.player.id)
-      console.log(this.winner.player.id)
-      if (this.player.id === this.winner.player.id) {
-        this.showWinner()
-      } else {
-        this.showLosers()
+      if (this.isTheWinner) {
+        if (this.player.id === this.winner.player.id) {
+          this.showWinner()
+        } else {
+          this.showLosers()
+        }
       }
     },
     showWinner () {
@@ -154,6 +154,7 @@ export default {
         confirmButtonText: 'Restart Game'
       }).then(() => {
         this.$router.push('/')
+        this.$store.dispatch('resetIsTheWinner')
         this.$socket.emit('restartGame')
       })
       const audio = new Audio(require('../assets/win.mp3'))
@@ -166,6 +167,7 @@ export default {
         confirmButtonText: 'Restart Game'
       }).then(() => {
         this.$router.push('/')
+        this.$store.dispatch('resetIsTheWinner')
         this.$socket.emit('restartGame')
       })
     },

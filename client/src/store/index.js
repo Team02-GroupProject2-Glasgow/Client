@@ -26,6 +26,9 @@ export default new Vuex.Store({
     },
     setWinner (state, payload) {
       state.winner = payload
+    },
+    resetWinner (state) {
+      state.isTheWinner = false
     }
   },
   actions: {
@@ -44,6 +47,9 @@ export default new Vuex.Store({
       context.commit('setWinner', payload)
       context.commit('setIsTheWinner', true)
       console.log(payload)
+    },
+    resetIsTheWinner (context) {
+      context.commit('resetWinner')
     }
   },
   modules: {
