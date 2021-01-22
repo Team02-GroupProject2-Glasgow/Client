@@ -1,6 +1,6 @@
 <template>
   <div class="game-board position-relative bg-1">
-    <h2 class="text-white mb-5">Game Tebak Kata</h2>
+    <h2 class="text-white mb-5">GAME TEBAK KATA</h2>
     <h1 class="text-white" v-if="!start">Players</h1>
     <div class="container-fluid mb-4 mt-4" v-if="!start">
     <div class="row justify-content-center">
@@ -16,28 +16,21 @@
     <h4 class="text-white mb-2" v-if="!start && players.length !==4 ">Wating for players..</h4>
     <button v-if="!start" @click="startGame" :disabled="players.length !== 4" class="btn btn-success">Start</button>
     <div v-if="start">
-      <div class="progres position-absolute text-warning fs-1">
-        {{ progress }}/5
+      <!-- Player -->
+      <div class="progres position-absolute text-white">
+        <span class="fs-4 fw-bold">PLAYER</span>
+        <div class="bg-3 p-1 fs-5 rounded-pill mt-2">
+          <span class="mx-2">{{ player.username }}</span>
+          <span class="mx-2 text-warning">{{ progress }}/5</span>
+        </div>
       </div>
       <!-- Leader Board -->
       <div class="leader-board position-absolute text-white">
         <span class="fs-4 fw-bold">LEADER BOARD</span>
-        <div v-for="(user, ind) in users" :key="ind" class="bg-3 p-1 fs-5 rounded-pill mt-2">
-          <span class="mx-2">{{ user.name }}</span>
-          <span class="mx-2 text-warning">{{ user.progress }}/5</span>
+        <div v-for="(player, ind) in players" :key="ind" class="bg-3 p-1 fs-5 rounded-pill mt-2">
+          <span class="mx-2">{{ player.username }}</span>
+          <span class="mx-2 text-warning">{{ player.progress }}/5</span>
         </div>
-        <!-- <div class="bg-3 p-1 fs-5 rounded-pill mt-2">
-          <span class="mx-2">Anthony</span>
-          <span class="mx-2 text-warning">3/5</span>
-        </div>
-        <div class="bg-3 p-1 fs-5 rounded-pill mt-2">
-          <span class="mx-2">Arif</span>
-          <span class="mx-2 text-warning">2/5</span>
-        </div>
-        <div class="bg-3 p-1 fs-5 rounded-pill mt-2">
-          <span class="mx-2">Pajar</span>
-          <span class="mx-2 text-warning">2/5</span>
-        </div> -->
       </div>
       <!-- Qlue -->
       <div class="w-50 mx-auto text-white fs-5">
@@ -139,7 +132,7 @@ export default {
       this.fifth = ''
       this.word = this.words[id]
       this.$socket.emit('updateProgress', {
-        id: this.user.id,
+        id: this.player.id,
         progress: this.progress
       })
     }
@@ -147,8 +140,7 @@ export default {
   computed: {
     ...mapState([
       'words',
-      'users',
-      'user',
+      'player',
       'players'
     ])
   }
@@ -163,7 +155,7 @@ export default {
   left: 2rem;
 }
 .progres {
-  left: 14rem;
+  right: 5rem;
 }
 .bg-1 {
   background-color: #11698e;
