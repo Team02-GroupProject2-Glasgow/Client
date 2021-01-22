@@ -146,17 +146,27 @@ export default {
     checkAnswer () {
       this.answer = `${this.first}${this.second}${this.third}${this.fourth}${this.fifth}`
       if (this.answer === this.word.answer && this.word.id === 5) {
+        console.log(this.winner, '<<< winner')
         this.isWinner = true
         this.$socket.emit('getTheWinner', {
           isWinner: true,
           player: this.player
         })
+        if (this.player.id === this.winner.player.id) {
+          this.showWinner()
+        }
       } else if (this.answer === this.word.answer) {
         console.log('benar')
         this.isTrue = true
       } else if (this.answer.length === 5) {
         console.log('salah')
       }
+    },
+    showWinner () {
+      this.$swal('Conrats you win!')
+    },
+    showLosers () {
+      this.$swal('You Lose..')
     },
     nextGame (id) {
       this.isTrue = false
