@@ -2,26 +2,20 @@
   <div class="game-board position-relative bg-1">
     <h2 class="text-white mb-5">GAME TEBAK KATA</h2>
     <h1 class="text-white" v-if="!start">Players</h1>
-    <div class="container-fluid mb-4 mt-4" v-if="!start">
-    <div class="row justify-content-center">
+    <div class="mb-4 mt-4" v-if="!start">
+    <div class="d-flex justify-content-center">
       <div class="col-2">
-        <div class="card" style="width: 18rem;">
-          <ul class="list-group list-group-flush">
-            <li v-for="player in players" :key="player.id" class="list-group-item">{{ player.username }}</li>
-          </ul>
-        </div>
+        <div v-for="player in players" :key="player.id" class="list-group-item bg-3 text-warning rounded-pill mb-2">{{ player.username }}</div>
       </div>
     </div>
     </div>
     <h4 class="text-white mb-2" v-if="!start && players.length !==4 ">Wating for players..</h4>
-    <button v-if="!start" @click="startGame" :disabled="players.length !== 4" class="btn btn-success">Start</button>
-    <!-- modal -->
+    <button v-if="!start" @click="startGame" :disabled="players.length !== 4" class="btn btn-success w-25">Start</button>
+    <!-- Button trigger modal -->
     <div class="mt-3">
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalRules">
+      <button v-if="!start" type="button" class="btn btn-info w-25 text-white" data-bs-toggle="modal" data-bs-target="#modalRules">
         Rules / Peraturan
       </button>
-
       <!-- Modal -->
       <div class="modal fade" id="modalRules" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
@@ -33,7 +27,7 @@
             <div class="modal-body">
               <p>1. Maksimal player yang dapat join adalah 4 player, jika penuh mohon menunggu</p>
               <p>2. Setiap player akan bermain untuk menebak kata dengan clue clue yang sudah diberikan</p>
-              <p>3. Setelah salah satu player ada yang menyelsaikan semua tebak kata, game akan berakhir</p>
+              <p>3. Setelah salah satu player ada yang menyelesaikan semua tebak kata, game akan berakhir</p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
