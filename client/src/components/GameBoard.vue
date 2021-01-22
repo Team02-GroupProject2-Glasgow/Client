@@ -123,20 +123,24 @@ export default {
       if (this.answer === this.word.answer && this.word.id === 5) {
         console.log(this.winner, '<<< winner')
         this.isWinner = true
-        const audio = new Audio('../assets/01-title.mp3')
-        audio.play()
         this.$socket.emit('getTheWinner', {
           isWinner: true,
           player: this.player
         })
       } else if (this.answer === this.word.answer) {
         console.log('benar')
+        const audio = new Audio(require('../assets/true.mp3'))
+        audio.play()
         this.isTrue = true
       } else if (this.answer.length === 5) {
         console.log('salah')
+        const audio = new Audio(require('../assets/wrong.mp3'))
+        audio.play()
       }
     },
     checkWinner () {
+      console.log(this.player.id)
+      console.log(this.winner.player.id)
       if (this.player.id === this.winner.player.id) {
         this.showWinner()
       } else {
@@ -152,6 +156,8 @@ export default {
         this.$router.push('/')
         this.$socket.emit('restartGame')
       })
+      const audio = new Audio(require('../assets/win.mp3'))
+      audio.play()
     },
     showLosers () {
       this.$swal({
