@@ -129,6 +129,9 @@ export default {
     },
     fifth () {
       this.checkAnswer()
+    },
+    isTheWinner () {
+      this.checkWinner()
     }
   },
   methods: {
@@ -146,14 +149,18 @@ export default {
           isWinner: true,
           player: this.player
         })
-        if (this.player.id === this.winner.player.id) {
-          this.showWinner()
-        }
       } else if (this.answer === this.word.answer) {
         console.log('benar')
         this.isTrue = true
       } else if (this.answer.length === 5) {
         console.log('salah')
+      }
+    },
+    checkWinner () {
+      if (this.player.id === this.winner.player.id) {
+        this.showWinner()
+      } else {
+        this.showLosers()
       }
     },
     showWinner () {
@@ -182,7 +189,8 @@ export default {
       'words',
       'player',
       'players',
-      'winner'
+      'winner',
+      'isTheWinner'
     ])
   }
 }
