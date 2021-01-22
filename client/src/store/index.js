@@ -42,7 +42,7 @@ export default new Vuex.Store({
     },
     SOCKET_setTheWinner (context, payload) {
       context.commit('setWinner', payload)
-      context.commit('setIsTheWinner', payload.isWinner)
+      context.commit('setIsTheWinner', true)
       console.log(payload)
     }
   },
